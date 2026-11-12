@@ -1,0 +1,174 @@
+/* =========================================================
+   COLOUR TOKENS (charcoal + gold from the crypto template)
+   Change a value here and the whole page updates.
+   ========================================================= */
+:root{
+  --bg:#1f1f29; --panel:#2a2a37; --panel-2:#343446;
+  --line:rgba(255,255,255,.09);
+  --gold:#ffb81c; --gold-soft:#ffd271; --orange:#ff8a3d;
+  --violet:#7c5cff;                 /* cool accent used only inside gradients for depth */
+  --text:#fff; --muted:#bdbdcc;
+  /* Reusable gradients */
+  --grad-gold:linear-gradient(135deg,#ffb81c,#ffd271 55%,#ff8a3d);
+  --grad-card:linear-gradient(155deg,#3a3a50 0%,#2a2a37 55%,#2e2740 100%);
+  --radius:24px;
+  --font-head:'Sora',system-ui,sans-serif; --font-body:'Manrope',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.65;overflow-x:hidden}
+h1,h2,h3{font-family:var(--font-head);line-height:1.15;letter-spacing:-.02em}
+section{padding:110px 6vw;max-width:1180px;margin:0 auto}
+.sec-title{font-size:clamp(1.9rem,4.2vw,3rem);text-align:center;margin-bottom:16px;
+  background:linear-gradient(120deg,#fff 30%,var(--gold-soft));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-sub{text-align:center;color:var(--muted);max-width:60ch;margin:0 auto 54px;font-size:1.08rem}
+
+/* Background glows drift slowly */
+.glow{position:fixed;border-radius:50%;filter:blur(130px);pointer-events:none;z-index:-1;animation:drift 18s ease-in-out infinite alternate}
+.glow-a{width:560px;height:560px;background:var(--gold);opacity:.16;top:-180px;left:-140px}
+.glow-b{width:520px;height:520px;background:var(--violet);opacity:.20;top:40%;right:-200px;animation-delay:-6s}
+.glow-c{width:480px;height:480px;background:var(--orange);opacity:.12;bottom:-200px;left:20%;animation-delay:-12s}
+@keyframes drift{to{transform:translate(70px,50px) scale(1.15)}}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-block;background:var(--grad-gold);background-size:200% 200%;color:#1c1c24;font-weight:700;padding:15px 32px;
+  border-radius:999px;text-decoration:none;border:0;cursor:pointer;font:700 1rem var(--font-body);position:relative;overflow:hidden;
+  transition:transform .25s,box-shadow .25s,background-position .5s}
+.btn:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 14px 34px rgba(255,184,28,.4)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s}
+.btn:hover::after{transform:translateX(120%)}
+.btn-sm{padding:10px 22px;font-size:.92rem}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,184,28,.55)}
+.btn-ghost:hover{background:rgba(255,184,28,.12);box-shadow:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- Nav pill ---------- */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(92%,980px);z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px 10px 22px;background:rgba(42,42,55,.7);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font:600 1rem var(--font-head)}
+.brand-mark{width:14px;height:14px;background:var(--grad-gold);transform:rotate(45deg);border-radius:3px}
+
+/* ---------- Hero ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;padding-top:140px;position:relative}
+.hero-title{font-size:clamp(2.7rem,8.4vw,6rem);max-width:14ch;font-weight:700;position:relative;z-index:1}
+/* Words rise in one by one (script.js wraps each word in .w) */
+.hero-title .w{display:inline-block;opacity:0;transform:translateY(46px);filter:blur(10px);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--n)*.14s + .2s)}
+.hero-title .w:nth-child(n+4){background:linear-gradient(100deg,var(--gold),var(--gold-soft),var(--orange),var(--gold));background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards,shine 4s linear infinite;animation-delay:calc(var(--n)*.14s + .2s),0s}
+@keyframes shine{to{background-position:250% 0}}
+@keyframes rise{to{opacity:1;transform:none;filter:none}}
+.hero-sub{max-width:56ch;color:var(--muted);font-size:1.2rem;opacity:0;animation:rise .9s .9s forwards;position:relative;z-index:1}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:rise .9s 1.1s forwards;position:relative;z-index:1}
+/* Glowing rotating ring behind the headline */
+.ring{position:absolute;width:min(78vw,720px);aspect-ratio:1;border-radius:50%;top:50%;left:50%;translate:-50% -48%;border:1px solid rgba(255,184,28,.25);
+  background:radial-gradient(circle,rgba(124,92,255,.18),transparent 65%);animation:spin2 28s linear infinite}
+.ring i{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--grad-gold);box-shadow:0 0 22px 4px rgba(255,184,28,.7)}
+.ring i:nth-child(1){top:-7px;left:50%}.ring i:nth-child(2){bottom:12%;left:7%}.ring i:nth-child(3){bottom:12%;right:7%;width:9px;height:9px}
+@keyframes spin2{to{transform:rotate(360deg)}}
+
+/* ---------- Ribbon ---------- */
+.ribbon{overflow:hidden;border-block:1px solid var(--line);background:linear-gradient(90deg,rgba(255,184,28,.1),rgba(124,92,255,.12),rgba(255,184,28,.1));padding:18px 0}
+.ribbon-track{display:flex;gap:56px;width:max-content;animation:marquee 26s linear infinite}
+.ribbon span{font:600 1.1rem var(--font-head);color:var(--gold-soft);white-space:nowrap;display:flex;align-items:center;gap:56px}
+.ribbon span::after{content:"";width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- Tools: large logos, one by one ---------- */
+/* Flex (not grid) so a last row with fewer tiles sits in the middle */
+.tool-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
+.tool-grid .tool{width:calc((100% - 72px)/4)}            /* 4 per row on desktop */
+@media(max-width:900px){.tool-grid .tool{width:calc((100% - 48px)/3)}}   /* 3 per row on tablet */
+.tool{aspect-ratio:1;background:var(--grad-card);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  position:relative;overflow:hidden;opacity:0;transform:scale(.55) translateY(50px)}
+.tool.show{animation:pop .85s cubic-bezier(.2,1.3,.4,1) forwards;animation-delay:calc(var(--i)*.3s)}
+@keyframes pop{60%{opacity:1}100%{opacity:1;transform:none}}
+.tool::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(255,184,28,.28),transparent 62%);opacity:.45;transition:opacity .4s}
+.tool:hover::before{opacity:1}
+.tool-logo{width:120px;height:120px;object-fit:contain;position:relative;animation:float 5s ease-in-out infinite;animation-delay:calc(var(--i)*-.8s)}
+.tool-badge{display:grid;place-items:center;border-radius:32px;background:var(--grad-gold);color:#1c1c24;font:700 3rem var(--font-head);box-shadow:0 14px 40px rgba(255,184,28,.35)}
+@keyframes float{50%{transform:translateY(-10px)}}
+.tool-name{font:600 1.1rem var(--font-head);position:relative}
+
+/* ---------- Skills: stacking cards ---------- */
+.stack{display:flex;flex-direction:column;gap:34px}
+.skill{position:sticky;top:calc(100px + var(--i)*26px);background:var(--grad-card);border:1px solid var(--line);border-radius:32px;padding:46px;min-height:320px;
+  box-shadow:0 -20px 44px rgba(0,0,0,.4);overflow:hidden}
+.skill::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-gold)}
+.skill::after{content:"";position:absolute;width:300px;height:300px;right:-80px;bottom:-120px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,255,.35),transparent 70%)}
+.skill h3{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:14px;max-width:20ch;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.skill p{color:var(--muted);max-width:54ch;margin-bottom:22px}
+.skill ul{list-style:none;display:grid;gap:10px;position:relative;z-index:1}
+.skill li{padding-left:30px;position:relative}
+.skill li::before{content:"";position:absolute;left:0;top:.5em;width:11px;height:11px;border-radius:50%;background:var(--grad-gold)}
+
+/* ---------- Payment ---------- */
+.steps{list-style:none;position:relative;max-width:660px;margin:0 auto 64px;display:grid;gap:44px}
+.steps::before,.steps::after{content:"";position:absolute;left:21px;top:0;width:3px;border-radius:3px}
+.steps::before{bottom:0;background:var(--line)}
+.steps::after{height:var(--fill,0%);background:linear-gradient(var(--gold),var(--orange));box-shadow:0 0 16px rgba(255,184,28,.65)}
+.steps li{display:flex;gap:22px;position:relative;z-index:1}
+.dot{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:2px solid var(--line);font:600 1rem var(--font-head);transition:.4s}
+.steps li.on .dot{background:var(--grad-gold);color:#1c1c24;border-color:transparent;box-shadow:0 0 20px rgba(255,184,28,.5)}
+.steps h3{font-size:1.25rem;margin-bottom:4px}.steps p{color:var(--muted)}
+
+.wallet{max-width:740px;margin:0 auto;padding:38px;border-radius:30px;position:relative;isolation:isolate}
+.wallet::before{content:"";position:absolute;inset:-2px;border-radius:32px;z-index:-2;background:conic-gradient(from var(--a,0deg),var(--gold),var(--violet),transparent 35%,var(--orange) 60%,transparent 85%,var(--gold));animation:spin 6s linear infinite}
+.wallet::after{content:"";position:absolute;inset:0;border-radius:30px;background:var(--grad-card);z-index:-1}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spin{to{--a:360deg}}
+.wallet-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.chip{padding:6px 16px;border-radius:999px;border:1px solid var(--gold);color:var(--gold-soft);font-size:.9rem;font-weight:600;background:rgba(255,184,28,.08)}
+.wallet-label{color:var(--muted);margin-bottom:10px}
+.addr-row{display:flex;gap:14px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px 14px 14px 20px}
+.addr-row code{flex:1;word-break:break-all;font-size:1rem}
+.wallet-note{margin-top:16px;font-size:.9rem;color:var(--muted)}
+
+/* ---------- Receipt email preview ---------- */
+.mail{max-width:700px;margin:0 auto;background:var(--grad-card);border:1px solid var(--line);border-radius:28px;padding:34px;position:relative;overflow:hidden}
+.mail::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-gold)}
+.mail-head{display:flex;gap:16px;align-items:center;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.mail-head small{display:block;color:var(--muted)}
+.mail-dot{width:14px;height:14px;border-radius:50%;background:var(--grad-gold);box-shadow:0 0 0 6px rgba(255,184,28,.18);flex:none}
+.mail-points{list-style:none;display:grid;gap:26px;margin-bottom:30px}
+.mail-points li{display:flex;gap:18px}
+.mail-points h3{font-size:1.1rem;margin-bottom:2px}.mail-points p{color:var(--muted)}
+/* Ticks draw in one after another when the card scrolls into view */
+.tick{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);position:relative;transition:.5s}
+.tick::after{content:"";position:absolute;left:9px;top:5px;width:8px;height:13px;border:solid #1c1c24;border-width:0 3px 3px 0;transform:rotate(45deg) scale(0);transition:transform .4s .15s}
+.mail.show .tick{background:var(--grad-gold);border-color:transparent;transition-delay:calc(var(--k)*.5s)}
+.mail.show .tick::after{transform:rotate(45deg) scale(1);transition-delay:calc(var(--k)*.5s + .15s)}
+.mail-btn{display:inline-block;background:var(--grad-gold);color:#1c1c24;font-weight:700;padding:14px 30px;border-radius:999px}
+
+/* ---------- Benefits ---------- */
+.live-band{text-align:center;padding:50px 30px;border-radius:30px;margin-bottom:26px;border:1px solid rgba(255,184,28,.35);
+  background:linear-gradient(120deg,rgba(255,184,28,.18),rgba(124,92,255,.22),rgba(255,138,61,.16));background-size:200% 200%;animation:band 8s ease-in-out infinite alternate}
+@keyframes band{to{background-position:100% 50%}}
+.live-band h3{font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:12px}
+.live-band p{color:var(--text);opacity:.88;max-width:58ch;margin:0 auto}
+.benefit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.benefit{background:var(--grad-card);border:1px solid var(--line);border-radius:var(--radius);padding:32px;transition:.35s;position:relative;overflow:hidden}
+.benefit:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 30px rgba(255,184,28,.12)}
+.benefit h3{margin-bottom:10px;font-size:1.25rem;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.benefit p{color:var(--muted)}
+.final-cta{text-align:center;margin-top:70px;display:grid;gap:22px;justify-items:center}
+.final-cta h3{font-size:clamp(1.8rem,4vw,2.8rem)}
+
+/* ---------- Brand logo, contact line, footer ---------- */
+.brand-logo{width:30px;height:30px;display:block}
+.tool-logo{filter:drop-shadow(0 14px 26px rgba(255,184,28,.25))}
+.contact{text-align:center;margin-top:30px;color:var(--muted)}
+.contact a,.footer a{color:var(--gold-soft);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,210,113,.4);transition:color .25s}
+.contact a:hover,.footer a:hover{color:var(--gold)}
+.footer{text-align:center;padding:46px 6vw 60px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+
+/* ---------- Mobile + reduced motion ---------- */
+@media(max-width:640px){
+  section{padding:80px 5vw}
+  .skill{padding:28px;top:calc(88px + var(--i)*18px)}
+  .addr-row{flex-direction:column;align-items:stretch}
+  .tool-grid{gap:14px}.tool-grid .tool{width:calc((100% - 14px)/2)}.tool-logo{width:84px;height:84px}   /* 2 per row on phones */
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}
+  .tool,.hero-title .w,.hero-sub,.hero-actions{opacity:1;transform:none;filter:none}
+}

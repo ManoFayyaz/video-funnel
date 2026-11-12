@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Quick cut icon">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb81c"/><stop offset=".55" stop-color="#ffd271"/><stop offset="1" stop-color="#ff8a3d"/>
+    </linearGradient>
+    <linearGradient id="v" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a82ff"/><stop offset="1" stop-color="#6a4cf0"/>
+    </linearGradient>
+    <clipPath id="c"><rect x="20" y="32" width="80" height="56" rx="12"/></clipPath>
+  </defs>
+  <rect width="120" height="120" rx="30" fill="#2a2a37"/>
+  <rect x="1" y="1" width="118" height="118" rx="29" fill="none" stroke="#ffffff" stroke-opacity=".12"/>
+  <g clip-path="url(#c)">
+    <polygon points="20,32 68,32 52,88 20,88" fill="url(#g)"/>
+    <polygon points="75,32 100,32 100,88 59,88" fill="url(#v)"/>
+  </g>
+  <circle cx="63" cy="24" r="5" fill="#ffffff"/>
+  <circle cx="49" cy="96" r="5" fill="#ffffff"/>
+</svg>
